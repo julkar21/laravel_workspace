@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
-
+use App\Http\Controllers\FrontController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +15,10 @@ use App\Http\Controllers\PagesController;
 */
 
 Route::get('/',[PagesController::class, 'index']);
+
+Route::get('/register', [FrontController::class,'registrationForm']);
+
+Route::get('/post', [FrontController::class, 'post']);
 
 /*Route::get('/', function () {
     return view('home');
