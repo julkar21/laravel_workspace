@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation;
 use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
 use Symfony\Componenet\HttpFoundation\File\UploadFile as SymfonyUploadedFile;
-
+use App\Models\User;
 class FrontController extends Controller
 {
     public function registrationForm(){
@@ -31,6 +31,7 @@ class FrontController extends Controller
         
         $this->validate($request,[
             'email'     => 'required|email',
+            'username'  => 'required|min:4', 
             'password'  => 'required|min:6',
             'photo'     =>  'required|image',
         ]);
@@ -46,8 +47,38 @@ class FrontController extends Controller
             $photo->storeAs('images',$file_name);
         }
 
+        User::create([
+            'email' => $request->input('email'),
+            'name' => $request->input('username'),
+            'password' => $request->input('password'),
+            'photo' => $file_name,
+        ]);
+
         session()->flash('message','Register Successfully');
 
-        return redirect()->back();
+        return redirect()->route('login');
+    }
+
+
+    public function showLoginform(){
+        return view('login');
+    }
+
+    public function processLogin(Request $request){
+
+    /*     $this->validate($request,[
+            'name'  => 'required|min:4', 
+            'password'  => 'required|min:6',
+        ]);
+    */
+        $credentials = $request->except(['_token']);
+
+        if(auth()->attempt($credentials)){
+            return redirect()->route('dashboard');
+        }
+    }
+
+    public function dashboard(){
+        return view('dashboard');
     }
 }
