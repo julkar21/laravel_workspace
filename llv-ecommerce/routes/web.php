@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function(){
-    return view('frontend.partials.master');
+    return view('frontend.home');
 });
 
 //Route::get('/', [ProductsController::class, 'index']);
