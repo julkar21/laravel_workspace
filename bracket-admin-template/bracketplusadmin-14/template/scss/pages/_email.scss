@@ -1,0 +1,300 @@
+/* ---------------------------------------------- */
+/* ############### 5.1 Email Page ############### */
+/* ---------------------------------------------- */
+
+.email {
+  &.collapsed-menu {
+    .br-subleft { left: $br-header-height; }
+    .br-mailbox-list { left: $br-header-height + $br-subleft-width; }
+    .br-mailbox-body { margin-left: 600px; }
+  }
+
+  &.show-right {
+    .br-subleft { left: $br-header-height - $br-sideleft-width; }
+    .br-mailbox-list { left: 280px - $br-sideleft-width; }
+    .br-mailbox-body {
+      margin-left: 600px - $br-sideleft-width;
+      margin-right: $br-sideleft-width + 30px;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    &,
+    &.collapsed-menu {
+      .br-mailbox-list {
+        width: auto;
+        right: 0;
+      }
+
+      .br-mailbox-body {
+        margin-left: 0;
+        display: none;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    &,
+    &.collapsed-menu {
+      .br-subleft { left: 0; }
+      .br-mailbox-list { left: $br-subleft-width; }
+    }
+
+    &.show-left {
+      .br-sideleft { left: 0; }
+      .br-subleft { left: $br-sideleft-width; }
+      .br-mailbox-list { transform: translateX($br-sideleft-width); }
+    }
+
+    &.show-right {
+      .br-subleft { left: -$br-sideleft-width; }
+      .br-mailbox-list { transform: translateX(-($br-sideleft-width + 30px)); }
+    }
+  }
+
+  @include media-breakpoint-down(xs) {
+    &,
+    &.collapsed-menu {
+      .br-subleft { left: -$br-subleft-width; }
+      .br-mailbox-list { left: 0; }
+
+      &.show-mb-left {
+        .br-subleft { left: 0; }
+        .br-mailbox-list { transform: translateX($br-subleft-width); }
+
+        &.show-left {
+          .br-subleft { left: $br-sideleft-width; }
+          .br-mailbox-list { transform: translateX($br-subleft-width + $br-sideleft-width); }
+        }
+
+        &.show-right {
+          .br-subleft { transform: translateX(-$br-sideright-width); }
+          .br-mailbox-list { transform: translateX(-$br-sideright-width); }
+        }
+      }
+    }
+  }
+}
+
+.br-subleft {
+  position: fixed;
+  left: 0;
+  top: $br-header-height;
+  bottom: 0;
+  width: $br-subleft-width;
+  padding: 10px;
+  z-index: 10;
+  background-color: lighten($br-primary, 5%);
+  @include transition($transition-base);
+
+  .btn-compose {
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    font-size: 11px;
+    font-family: $font-family-roboto;
+    letter-spacing: 1px;
+
+    i {
+      font-size: 18px;
+      line-height: 0;
+      margin-right: 7px;
+      margin-top: -2px;
+    }
+  }
+}
+
+.br-nav-mailbox {
+  margin-top: 10px;
+
+  .nav-link {
+    color: rgba(#fff,0.75);
+    display: flex;
+    align-items: center;
+    height: 38px;
+    padding: 0 10px;
+    @include border-radius(2px);
+
+    i {
+      line-height: 0;
+      width: 20px;
+      font-size: 24px;
+      margin-right: 10px;
+      text-align: center;
+
+      &.ion-ios-folder-outline { font-size: 18px; }
+      &.ion-ios-pricetag-outline { font-size: 18px; }
+    }
+
+    &:hover,
+    &:focus {
+      background-color: lighten($br-primary, 3%);
+      color: theme-color('info');
+    }
+
+    &.active {
+      background-color: lighten($br-primary, 3%);
+      color: theme-color('info');
+    }
+
+    + .nav-link { margin-top: 1px; }
+  }
+}
+
+.show-mailbox-left {
+  border-right: 1px solid $gray-300;
+  color: $gray-600;
+  height: 100%;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -15px;
+  font-size: 14px;
+
+  &:hover,
+  &:focus { color: $gray-800; }
+}
+
+.br-mailbox-list {
+  position: fixed;
+  top: $br-header-height;
+  bottom: 0;
+  left: $br-sideleft-width;
+  width: 320px;
+  background-color: #fff;
+  z-index: 100;
+  border-right: 1px solid $gray-400;
+  @include transition($transition-base);
+}
+
+.br-mailbox-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  border-bottom: 1px solid $gray-200;
+  padding: 0 15px;
+
+  .btn-group .btn {
+    padding: 8px 10px;
+    border: 0;
+  }
+}
+
+.br-mailbox-list-item {
+  position: relative;
+  padding: 10px 15px;
+  background-color: $gray-100;
+  @include transition($transition-base);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    left: 0;
+    width: 2px;
+    background-color: $gray-500;
+    opacity: 0;
+    @include transition($transition-base);
+  }
+
+  &:hover,
+  &:focus {
+    background-color: darken($gray-100, 2%);
+    cursor: pointer;
+
+    &::before {
+      top: -1px;
+      bottom: -1px;
+      opacity: 1;
+    }
+  }
+
+  &.unread {
+    &,&:hover,&:focus { background-color: #fff; }
+  }
+
+  &.active {
+    &,&:hover,&:focus {
+      background-color: #fff;
+      &::before {
+        background-color: theme-color('info');
+        top: -1px;
+        bottom: -1px;
+        opacity: 1;
+      }
+    }
+  }
+
+  + .br-mailbox-list-item { border-top: 1px solid $gray-300; }
+}
+
+.br-mailbox-body {
+  margin-top: $br-header-height;
+  margin-left: 320px + $br-subleft-width;
+  @include transition($transition-base);
+}
+
+.br-msg-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+
+  .nav-link {
+    font-size: 24px;
+    color: $gray-600;
+  }
+}
+
+.br-msg-body {
+  background-color: #fff;
+  padding: 40px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0px 1px 3px 0px rgba(#000, 0.21);
+  @include border-radius();
+
+  p:last-child { margin-bottom: 0; }
+}
+
+/** WITH SUB LEFT MENU **/
+.with-subleft {
+  .br-subleft {
+    left: -$br-subleft-width;
+    @include media-breakpoint-up(lg) {
+      left: 0;
+    }
+  }
+
+  &.collapsed-menu {
+    .br-subleft {
+      @include media-breakpoint-up(lg) {
+        left: $br-header-height;
+      }
+    }
+  }
+
+  &.show-subleft {
+    @include media-breakpoint-down(md) {
+      overflow: hidden;
+      .br-subleft { left: 0; }
+      .br-contentpanel { transform: translateX($br-subleft-width); }
+
+      &.show-left {
+        .br-subleft { left: $br-sideleft-width; }
+        .br-contentpanel { transform: translateX($br-subleft-width + $br-sideleft-width); }
+      }
+
+      &.show-right {
+        .br-subleft { transform: translateX(-$br-sideright-width); }
+        .br-contentpanel { transform: translateX(-$br-sideright-width); }
+      }
+    }
+  }
+}

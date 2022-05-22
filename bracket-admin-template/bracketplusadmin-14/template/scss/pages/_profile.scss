@@ -1,0 +1,57 @@
+/* ------------------------------------------------ */
+/* ############### 5.3 Profile Page ############### */
+/* ------------------------------------------------ */
+
+.br-profile-page {
+  .card-header {
+    background-color: theme-color('info');
+    border-bottom: 0;
+    border-radius: 0;
+
+    a { color: rgba(#fff, .8); }
+  }
+
+  .card-body { background-color: lighten($br-primary, 10%); }
+
+  .br-profile-body {
+    max-width: 1150px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+
+    @media (min-width: 480px) {
+      padding: 30px;
+    }
+  }
+
+  .profile-skills {
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+      display: block;
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+
+    span {
+      background-color: $gray-200;
+      padding: 5px 10px;
+      display: inline-block;
+      @include border-radius(2px);
+    }
+  }
+
+  .media-list {
+    .media + .media { border-top: 1px solid $gray-200; }
+  }
+
+  .media-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+
+    a { color: $gray-500; }
+  }
+}

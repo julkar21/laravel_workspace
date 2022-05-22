@@ -1,0 +1,19 @@
+
+/* ------------------------------------------------- */
+/* ############### 5.2 Contacts Page ############### */
+/* ------------------------------------------------- */
+
+.table-contact {
+  tbody tr {
+    td,
+    th {
+      &:nth-child(4),
+      &:nth-child(5) {
+        font-family: $font-family-lato;
+        font-size: 13px;
+      }
+
+      &:nth-child(4) { color: $gray-700; }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+
+/* ------------------------------------------- */
+/* ############### 5.5 Sitemap ############### */
+/* ------------------------------------------- */
+
+.br-sitemap-section {
+  a {
+    color: $gray-800;
+    &:hover,
+    &:focus { color: theme-color('info'); }
+  }
+
+  h6 {
+    font-size: 16px;
+    margin-top: 20px;
+    &:first-child { margin-top: 0; }
+  }
+
+  ol {
+    padding-left: 0;
+    list-style: none;
+
+    > li {
+      margin-top: 20px;
+      a {
+        color: theme-color('info');
+        font-weight: 500;
+
+        &:hover,
+        &:focus {
+          color: darken(theme-color('info'), 5%);
+        }
+      }
+
+      &:first-child { margin-top: 0; }
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin-top: 5px;
+    padding-left: 20px;
+
+    li {
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        height: 1px;
+        width: 8px;
+        top: 50%;
+        left: -18px;
+        background-color: theme-color('info');
+      }
+    }
+  }
+}
