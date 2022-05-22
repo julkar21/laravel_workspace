@@ -20,6 +20,7 @@
     <script src="{{ asset('backend/js/map.shiftworker.js')}}"></script>
     <script src="{{ asset('backend/js/ResizeSensor.js')}}"></script>
     <script src="{{ asset('backend/js/dashboard.js')}}"></script>
+    <script src="{{ asset('backend/js/custom.js')}}"></script>
     <script>
       $(function(){
         'use strict'

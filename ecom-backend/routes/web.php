@@ -33,11 +33,11 @@ Route::group(['prefix'=>'/product'],function(){
 
 // For Category Route
 Route::group(['prefix'=>'/product'],function(){
-    Route::get('/manage','App\Http\Controllers\Backend\ProductController@index')->name('manage');
-    Route::get('/create','App\Http\Controllers\Backend\ProductController@create')->name('create');
-    Route::post('/store','App\Http\Controllers\Backend\ProductController@store')->name('store');
-    Route::get('/edit/{id}','App\Http\Controllers\Backend\ProductController@edit')->name('edit');
-    Route::post('/update/{id}','App\Http\Controllers\Backend\ProductController@update')->name('update');
-    Route::get('/delete/{id}','App\Http\Controllers\Backend\ProductController@destroy')->name('delete');
+    Route::get('/catmanage','App\Http\Controllers\Backend\CategoryController@index')->name('catmanage');
+    Route::get('/catcreate','App\Http\Controllers\Backend\CategoryController@create')->name('catcreate');
+    Route::post('/catstore','App\Http\Controllers\Backend\CategoryController@store')->name('catstore');
+    Route::get('/catedit/{id}','App\Http\Controllers\Backend\CategoryController@edit')->name('catedit');
+    Route::post('/catupdate/{id}','App\Http\Controllers\Backend\CategoryController@update')->name('catupdate');
+    Route::get('/catdelete/{id}','App\Http\Controllers\Backend\CategoryController@destroy')->name('catdelete');
 });
 

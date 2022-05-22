@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Backend\Category;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.pages.category.categorymanage');
     }
 
     /**
@@ -35,7 +37,28 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator=Validator::make($request->all(),[
+            'name' => 'required',
+            'description' => 'required',
+            'tag'=> 'required',
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                'status' => 'failed',
+                'errors' => $validator->messages()
+            ]);
+        }
+        else{
+            $category = new Category();
+            $category->name = $request->name;
+            $category->description = $request->description;
+            $category->tag = $request->tag;
+            $category->status = $request->status;
+            $category->save();
+            return response()->json([
+                'message' => 'Category Added Successfully'
+            ]);
+        }
     }
 
     /**
