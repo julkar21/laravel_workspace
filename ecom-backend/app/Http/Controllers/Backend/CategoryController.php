@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Backend\Category;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class CategoryController extends Controller
 {
@@ -15,7 +16,8 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        
         return view('backend.pages.category.categorymanage');
     }
 
@@ -71,7 +73,14 @@ class CategoryController extends Controller
     {
         //
     }
-
+    
+    public function showall()
+    {
+        $categories = Category::all();
+        return response()->json([
+            'payload'=>$categories,
+        ]);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -80,7 +89,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return response()->json([
+            'payload'=>$category,
+        ]);
     }
 
     /**
@@ -92,7 +104,28 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = FacadesValidator::make($request->all(),[
+            'categoryName'=>'required',
+            'categoryDescription'=>'required',
+            'categoryTags'=>'required',
+        ]);
+        if($validator->fails()){
+            return response()->json([
+               'status'=>'failed',
+               'errors'=>$validator->getMessageBag(), 
+            ]);
+        }
+        else{
+            $category = Category::find($id);
+            $category->name = $request->categoryName;
+            $category->description = $request->categoryDescription;
+            $category->tag = $request->categoryTags;
+            $category->status = $request->categoryStatus;
+            $category->update();
+            return response()->json([
+                'status'=>'success',
+            ]);
+        }
     }
 
     /**
@@ -103,6 +136,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+        return response()->json([
+            'status'=>'success'
+        ]);
     }
 }
