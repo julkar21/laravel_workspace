@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('catId');
             $table->string('slug');
             $table->string('subCatName');
-            $table->string('des');
+            $table->string('description');
             $table->string('image');
             $table->integer('status')->default(1)->comment("1 for Active 2 for Inactive");
             $table->timestamps();

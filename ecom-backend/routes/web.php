@@ -37,7 +37,7 @@ Route::group(['prefix'=>'/product'],function(){
 
 // For Category Route
 Route::group(['prefix'=>'/category'],function(){
-    Route::post('/addcategory','App\Http\Controllers\BackEnd\CategoryController@store')->middleware(['auth'])->name('addcategory');
+    Route::post('/storecategory','App\Http\Controllers\BackEnd\CategoryController@store')->middleware(['auth'])->name('storecategory');
     Route::get('/managecategory','App\Http\Controllers\BackEnd\CategoryController@index')->middleware(['auth'])->name('managecategory');
     Route::get('/showcategory','App\Http\Controllers\BackEnd\CategoryController@showall')->middleware(['auth'])->name('showcategory');
     Route::get('/editCategory/{id}','App\Http\Controllers\BackEnd\CategoryController@edit')->middleware(['auth'])->name('editcategory');
@@ -46,8 +46,9 @@ Route::group(['prefix'=>'/category'],function(){
 });
 
 // For SubCategory Route
-Route::group(['prefix'=>'/category'],function(){
-    Route::post('/addsubcategory','App\Http\Controllers\BackEnd\SubcategoryController@store')->middleware(['auth'])->name('addsubcategory');
+Route::group(['prefix'=>'/subcategory'],function(){
+    Route::get('/createsubcategory','App\Http\Controllers\Backend\SubcategoryController@create')->middleware(['auth'])->name('createsubcategory');
+    Route::post('/storesubcategory','App\Http\Controllers\BackEnd\SubcategoryController@store')->middleware(['auth'])->name('storesubcategory');
     Route::get('/managesubcategory','App\Http\Controllers\BackEnd\SubcategoryController@index')->middleware(['auth'])->name('managesubcategory');
     Route::get('/showsubcategory','App\Http\Controllers\BackEnd\SubcategoryController@showall')->middleware(['auth'])->name('showsubcategory');
     Route::get('/editsubCategory/{id}','App\Http\Controllers\BackEnd\SubcategoryController@edit')->middleware(['auth'])->name('editsubcategory');

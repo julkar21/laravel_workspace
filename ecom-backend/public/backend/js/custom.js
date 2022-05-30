@@ -30,7 +30,7 @@ function handleAddCategory() {
         var tag = jQuery(".tag").val();
         var status = jQuery(".status").val();
         $.ajax({
-            url : 'addcategory',
+            url : 'storecategory',
             type: 'POST',
             datatype: 'json',
             data:{

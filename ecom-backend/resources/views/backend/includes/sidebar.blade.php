@@ -10,25 +10,36 @@
           </a><!-- br-menu-link -->
 
           <label class="sidebar-label pd-x-10 mg-t-25 mg-b-20 tx-info">Admin</label>
-
+        <!-- Product Menu -->
         <li class="br-menu-item">
           <a href="#" class="br-menu-link with-sub">
             <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
             <span class="menu-item-label">Product</span>
-          </a><!-- br-menu-link -->
+          </a>
           <ul class="br-menu-sub">
             <li class="sub-item"><a href="{{ route('manage') }}" class="sub-link">Manage Product</a></li>
             <li class="sub-item"><a href="{{ route('create') }}" class="sub-link">Add Product</a>
           </ul>
         </li>
-
+        <!-- Category Menu -->
         <li class="br-menu-item">
           <a href="#" class="br-menu-link with-sub">
             <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
             <span class="menu-item-label">Category</span>
-          </a><!-- br-menu-link -->
+          </a>
           <ul class="br-menu-sub">
             <li class="sub-item"><a href="{{ route('managecategory') }}" class="sub-link">Manage Product</a></li>            
+          </ul>
+        </li>
+        <!-- Sub Category Menu -->
+        <li class="br-menu-item">
+          <a href="#" class="br-menu-link with-sub">
+            <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+            <span class="menu-item-label">SubCategory</span>
+          </a>
+          <ul class="br-menu-sub">
+            <li class="sub-item"><a href="{{ route('managesubcategory') }}" class="sub-link">Manage SubCategory</a></li>
+            <li class="sub-item"><a href="{{ route('createsubcategory') }}" class="sub-link">Add SubCategory</a></li>            
           </ul>
         </li>
       </ul><!-- br-sideleft-menu -->

@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use App\Models\Backend\Subcategory;
+use App\Models\Backend\Category;
+use Image;
+use File;
 
 class SubcategoryController extends Controller
 {
@@ -23,8 +28,10 @@ class SubcategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        $categories=Category::all();
+        return view('backend.pages.subcategory.addsubcategory',compact("categories"));
+        
     }
 
     /**
@@ -35,7 +42,34 @@ class SubcategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //return $request->all();
+
+        // $request->validate([
+        //     'catId' => 'required',
+        //     'slug' => 'required',
+        //     'subCatName' => 'required',
+        //     'description' => 'required',
+        //     'status' => 'required'
+        // ]);
+
+        // dd($request);
+
+        $subcategory = new Subcategory();
+        $subcategory->catId = $request->catId;
+        $subcategory->slug = Str::slug($request->subCatName);
+        $subcategory->subCatName = $request->subCatName;
+        $subcategory->description = $request->description;
+        $subcategory->status = $request->status; 
+
+        
+            $image=$request->file('image');
+            $imageCustomName=rand().'.'.$image->getClientOriginalExtension();
+            $location=public_path('backend/subcategoryimages/'.$imageCustomName);
+            Image::make($image)->save($location);
+            $subcategory->image=$imageCustomName;
+            $subcategory->save();
+            dd($subcategory);
+       
     }
 
     /**
@@ -48,7 +82,10 @@ class SubcategoryController extends Controller
     {
         //
     }
-
+    public function showall()
+    {
+        
+    }
     /**
      * Show the form for editing the specified resource.
      *
