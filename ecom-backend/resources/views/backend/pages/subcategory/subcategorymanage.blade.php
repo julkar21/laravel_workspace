@@ -17,29 +17,23 @@
                     <thead>
                         <tr>
                             <th>#SL</th>
-                            <th>Product Name</th>
+                            <th>Category ID</th>
+                            <th>Sub Category Name</th>
                             <th>Description</th>
-                            <th>Category</th>
-                            <th>Size</th>
-                            <th>Cost Price</th>
-                            <th>Sale Price</th>
-                            <th>Quantity</th>
+                            <th>Images</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>                        
                     <tbody>
                         @php $sl=1; @endphp
-                        @foreach($products as $data)
+                        @foreach($subcats as $data)
                             <tr>
                                 <td>{{ $sl }}</td>
-                                <td>{{ $data->name }}</td>
+                                <td>{{ $data->catId }}</td>
+                                <td>{{ $data->subCatName }}</td>
                                 <td>{{ $data->description }}</td>
-                                <td>{{ $data->category }}</td>
-                                <td>{{ $data->size }}</td>
-                                <td>{{ $data->costPrice }}</td>
-                                <td>{{ $data->salePrice }}</td>
-                                <td>{{ $data->quantity }}</td>
+                                <td><img height="80" src="{{ asset('backend/subcategoryimages/'.$data->image) }}" alt=""></td>
                                 <td>
                                     @if($data->status==1)
                                     <span class="badge badge-info">Active</span>
@@ -48,7 +42,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('edit',$data->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ route('editsubcategory',$data->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
                                     <button class="btn btn-sm btn-danger"><i class="fa fa-trash" data-toggle="modal" data-target="#delete{{$data->id}}"></i></button>
                                 </td>
                             </tr>
@@ -67,7 +61,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <a href="{{ route('delete',$data->id) }}" class="btn btn-primary">Confirm</a>
+                                    <a href="{{ route('deletesubcategory',$data->id) }}" class="btn btn-primary">Confirm</a>
                                 </div>
                                 </div>
                             </div>

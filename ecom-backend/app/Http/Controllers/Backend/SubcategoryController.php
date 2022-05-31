@@ -19,7 +19,8 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        //
+        $subcats = Subcategory::all();
+        return view('backend.pages.subcategory.subcategorymanage',compact('subcats'));
     }
 
     /**
@@ -68,7 +69,7 @@ class SubcategoryController extends Controller
             Image::make($image)->save($location);
             $subcategory->image=$imageCustomName;
             $subcategory->save();
-            dd($subcategory);
+            return redirect()->route('managesubcategory');
        
     }
 
@@ -94,7 +95,9 @@ class SubcategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $subcat=Subcategory::find($id);
+        $cats=Category::all();
+        return view('backend.pages.subcategory.editsubcategory',compact("subcat","cats"));
     }
 
     /**
@@ -106,7 +109,31 @@ class SubcategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $subcategory = Subcategory::find($id);
+        $subcategory->catId = $request->catId;
+        $subcategory->slug = Str::slug($request->subCatName);
+        $subcategory->subCatName = $request->subCatName;
+        $subcategory->description = $request->description;
+        $subcategory->status = $request->status; 
+
+        if(empty($request->image)){
+            $subcategory->update();
+            return redirect()->route('managesubcategory');
+        }else{
+            if(File::exists('backend/subcategoryimages/'.$request->image)){
+                File::delete('backend/subcategoryimages/'.$request->image);
+            }
+                $image=$request->file('image');
+                $imageCustomName=rand().'.'.$image->getClientOriginalExtension();
+                $location=public_path('backend/subcategoryimages/'.$imageCustomName);
+                Image::make($image)->save($location);
+                $subcategory->image=$imageCustomName;
+    
+            $subcategory->update();
+            return redirect()->route('managesubcategory');
+        }
+
+        
     }
 
     /**
@@ -117,6 +144,12 @@ class SubcategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $subcat=Subcategory::find($id);
+
+        if(File::exists('backend/subcategoryimages/'.$subcat->image)){
+            File::delete('backend/subcategoryimages/'.$subcat->image);
+        }
+        $subcat->delete();
+        return redirect()->route('managesubcategory');
     }
 }
